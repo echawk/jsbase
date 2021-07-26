@@ -1,0 +1,15 @@
+TOOL      | STATUS
+cut       - partly
+ls        - started
+tr        - started
+true      - DONE
+false     - DONE
+yes       - DONE
+seq       - mostly
+sleep     - partly
+kill      - partly
+rev       - DONE
+cat       - mostly
+tac       - DONE
+tee       - mostly
+basename  - started
