@@ -20,7 +20,7 @@ function parseFieldArg (arg) {
 				for (let i = 1; i <= Number.parseInt(dash_split_arg[1]); i++) {
 					fields.push(i)
 				}
-			} else if (comma_split_arg[i].startsWith("-")) {
+			} else if (comma_split_arg[i].endsWith("-")) {
 					/* FIXME: follow spec */
 			} else {
 				let dash_split_arg = comma_split_arg[i].split("-")
