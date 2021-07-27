@@ -1,51 +1,46 @@
 import * as os from "os";
 import * as std from "std";
+import * as util from "./util.js";
 
 var args = scriptArgs.slice(1)
-var i = 0
+let file_mode = "w"
 var files = []
 
 /* Parse arguments */
-while (i < args.length) {
+for (let i = 0; i < args.length; i++) {
 	if (args[i] == "-V") {
 		std.exit(0)
 	} else if (args[i] == "-h") {
 		std.exit(1)
-		/* FIXME: implement spec */
 	} else if (args[i] == "-a") {
+		file_mode = "a"
+		/* FIXME: implement spec */
+	} else if (args[i] == "-i") {
 		std.exit(1)
 	} else {
 		files.push(args[i])
 	}
-	i++
 }
 
 var outbuffer = []
-var input = std.in.readAsString()
-var lines = input.split("\n")
-i = 0
-while (i < lines.length) {
+let lines = util.readStdinAsLines()
+for (let i = 0; i < lines.length; i++) {
 	outbuffer.push(lines[i])
-	i++
 }
 
-var j = 0
 var wfiles = {}
-while (j < files.length) {
-	wfiles[files[j].toString()] = std.open(files[j], "w")
+for (let j = 0; j < files.length; j++) {
+	wfiles[files[j].toString()] = std.open(files[j], file_mode)
 	if (wfiles[files[j].toString()] == null) {
 		std.exit(1)
 	}
-	j++
 }
 
-i = 0
-while (i < outbuffer.length) {
+for (let i = 0; i < outbuffer.length; i++) {
 	print(outbuffer[i])
 	for (var key in wfiles) {
 		wfiles[key].printf("%s\n", outbuffer[i])
 	}
-	i++
 }
 
 for (var key in wfiles) {
