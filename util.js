@@ -18,6 +18,25 @@ export function readFileAsLines(filepath) {
 	return retbuffer
 }
 
+export function readLinesFromFile(filepath, numLines) {
+	let retbuffer = [] /* list of lines: return value */
+
+	let file = std.open(filepath, "r")
+	if (file == null) {
+		std.exit(1)
+	}
+	let i = 0
+	while (i < numLines && !file.eof()) {
+		let l = file.getline()
+		if (l != null) {
+			retbuffer.push(l)
+		}
+		i++
+	}
+	file.close()
+	return retbuffer
+}
+
 export function readStdinAsLines() {
 	var stdin_string = std.in.readAsString()
 	var lines = stdin_string.split("\n")
