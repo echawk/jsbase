@@ -1,5 +1,6 @@
 import * as os from "os";
 import * as std from "std";
+import * as util from "./util.js";
 /* cut -d',' -f2 -- DELIM=, FIELD=2 */
 /*
 cut's flags all start with a dash, then are followed by a letter
@@ -56,8 +57,7 @@ if (field < 0){
 var outbuffer = []
 /* if no files, act on standard input */
 if (files.length == 0) {
-	var input = std.in.readAsString()
-	var lines = input.split("\n")
+	var lines = util.readStdinAsLines()
 	i = 0
 	while (i < lines.length) {
 		outbuffer.push(lines[i].split(delimiter)[field])
