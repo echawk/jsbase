@@ -49,3 +49,14 @@ export function readStdinAsLines() {
 	return lines
 }
 
+export function printLines(lines) {
+	for (let i = 0; i < lines.length; i++) {
+		std.printf("%s\n", lines[i])
+	}
+}
+
+export function printNLines(lines, n) {
+	for (let i = 0; i < n; i++) {
+		std.printf("%s\n", lines[i])
+	}
+}
