@@ -33,6 +33,8 @@ function parseFieldArg (arg) {
 			fields.push(Number.parseInt(comma_split_arg[i]))
 		}
 	}
+	/* I think a good return value for this function would be a function that when given a number,
+	tells you whether or not a field is to be included in the final output or not */
 }
 
 /* Parse arguments */
