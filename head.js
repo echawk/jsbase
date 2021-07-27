@@ -24,18 +24,12 @@ for (var i = 0; i < args.length; i++) {
 	}
 }
 
-function printNlines(input, n){
-	for (var i = 0; i < n; i++) {
-		std.printf("%s\n", input[i])
-	}
-}
-
 if (files.length == 0) {
 	var lines = util.readStdinAsLines()
-	printNlines(lines, (numLines > lines.length ? lines.length : numLines))
+	util.printNLines(lines, (numLines > lines.length ? lines.length : numLines))
 } else if (files.length == 1) {
-	var lines = util.readFileAsLines(files[0])
-	printNlines(lines, (numLines > lines.length ? lines.length : numLines))
+	let lines = util.readLinesFromFile(files[0], numLines)
+	util.printLines(lines)
 } else {
 	for (var i = 0; i < files.length; i++) {
 		if (i == 0) {
@@ -43,7 +37,7 @@ if (files.length == 0) {
 		} else {
 			std.printf("\n==> %s <==\n", files[i])
 		}
-		var lines = util.readFileAsLines(files[i])
-		printNlines(lines, (numLines > lines.length ? lines.length : numLines))
+		let lines = util.readLinesFromFile(files[i], numLines)
+		util.printLines(lines)
 	}
 }
