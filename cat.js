@@ -1,5 +1,6 @@
 import * as os from "os";
 import * as std from "std";
+import * as util from "./util.js";
 
 var args = scriptArgs.slice(1)
 var i = 0
@@ -23,33 +24,24 @@ while (i < args.length) {
 var outbuffer = []
 /* if no files, act on standard input */
 if (files.length == 0) {
-	var input = std.in.readAsString()
-	var lines = input.split("\n")
+	var lines = util.readStdinAsLines()
 	i = 0
 	while (i < lines.length) {
-		outbuffer.push(lines[i])
+		print(lines[i])
 		i++
 	}
 } else {
 	i = 0
 	while (i < files.length) {
-		var file = std.open(files[i], "r")
-		if (file == null) {
-			std.exit(1)
+		var lines = util.readFileAsLines(files[i])
+		for (var j = 0; j < lines.length; j++) {
+			outbuffer.push(lines[j])
 		}
-		while (!file.eof()) {
-			var l = file.getline()
-			if (l != null) {
-				outbuffer.push(l)
-			}
-		}
-		file.close()
 		i++
 	}
-}
-
-i = 0
-while (i < outbuffer.length) {
-	print(outbuffer[i])
-	i++
+	i = 0
+	while (i < outbuffer.length) {
+		print(outbuffer[i])
+		i++
+	}
 }
