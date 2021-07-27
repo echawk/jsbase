@@ -14,3 +14,7 @@ compiler/runtime that these files use. This won't work on node.
 You'll also need gnumake if you don't have it already (you probably do).
 
 Just run `make`.
+
+# License
+
+jsbase is dual-licensed under the GPLv3 and MIT
