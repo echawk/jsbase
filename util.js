@@ -20,6 +20,13 @@ export function readFileAsLines(filepath) {
 
 export function readStdinAsLines() {
 	var stdin_string = std.in.readAsString()
-	return stdin_string.split("\n")
+	var lines = stdin_string.split("\n")
+	var lastLine = lines.pop()
+	/* if the last line is not a trailing newline,
+		add it back to the lines array */
+	if (lastLine != "") {
+		lines.push(lastLine)
+	}
+	return lines
 }
 
