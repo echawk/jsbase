@@ -7,7 +7,7 @@ var i = 0
 var files = []
 
 /* Parse arguments */
-while (i < args.length) {
+for (let i = 0; i < args.length; i++) {
 	if (args[i] == "-V") {
 		std.exit(0)
 	} else if (args[i] == "-h") {
@@ -15,7 +15,6 @@ while (i < args.length) {
 	} else {
 		files.push(args[i])
 	}
-	i++
 }
 
 /* if no files, act on standard input */
@@ -26,20 +25,11 @@ if (files.length == 0) {
 	}
 } else {
 	var outbuffer = []
-	i = 0
-	while (i < files.length) {
-		var file = std.open(files[i], "r")
-		if (file == null) {
-			std.exit(1)
+	for (let i = 0; i < files.length; i++) {
+		var lines = util.readFileAsLines(files[i])
+		for (let j = 0; j < lines.length; j++) {
+			outbuffer.push(lines[j].split("").reverse().join(""))
 		}
-		while (!file.eof()) {
-			var l = file.getline()
-			if (l != null) {
-				outbuffer.push(l.split("").reverse().join(""))
-			}
-		}
-		file.close()
-		i++
 	}
 	i = 0
 	while (i < outbuffer.length) {
