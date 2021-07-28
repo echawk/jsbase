@@ -3,11 +3,10 @@ import * as std from "std";
 import * as util from "./util.js";
 
 var args = scriptArgs.slice(1)
-var i = 0
 var files = []
 
 /* Parse arguments */
-while (i < args.length) {
+for (let i = 0; i < args.length; i++) {
 	if (args[i] == "-V") {
 		std.exit(0)
 	} else if (args[i] == "-h") {
@@ -18,30 +17,23 @@ while (i < args.length) {
 	} else {
 		files.push(args[i])
 	}
-	i++
 }
 
 var outbuffer = []
 /* if no files, act on standard input */
 if (files.length == 0) {
 	var lines = util.readStdinAsLines()
-	i = 0
-	while (i < lines.length) {
+	for (let i = 0; i < lines.length; i++) {
 		print(lines[i])
-		i++
 	}
 } else {
-	i = 0
-	while (i < files.length) {
+	for (let i = 0; i < files.length; i++) {
 		var lines = util.readFileAsLines(files[i])
 		for (var j = 0; j < lines.length; j++) {
 			outbuffer.push(lines[j])
 		}
-		i++
 	}
-	i = 0
-	while (i < outbuffer.length) {
+	for (let i = 0; i < outbuffer.length; i++) {
 		print(outbuffer[i])
-		i++
 	}
 }
