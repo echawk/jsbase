@@ -60,3 +60,7 @@ export function printNLines(lines, n) {
 		std.printf("%s\n", lines[i])
 	}
 }
+
+export function dbg(obj) {
+	std.printf("DBG: %s\n", JSON.stringify(obj))
+}
