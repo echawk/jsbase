@@ -65,7 +65,7 @@ for (let i = 0; i < args.length; i++) {
 		if (!(args[i].replace("-f", "") == "")) {
 			/* FIXME: follow spec */
 			field = Number.parseInt(args[i].replace("-f", "")) - 1
-			let f = parseFieldArg(args[i].replace("-f", ""))
+			var f = parseFieldArg(args[i].replace("-f", ""))
 		} else {
 			i++
 			if (i < args.length) {
@@ -100,13 +100,18 @@ var outbuffer = []
 if (files.length == 0) {
 	var lines = util.readStdinAsLines()
 	for (let i = 0; i < lines.length; i++) {
-		outbuffer.push(lines[i].split(delimiter)[field])
+		let linefields = lines[i].split(delimiter)
+		for (let j = 0; j < linefields.length; j++) {
+			if (f(j)) {
+				outbuffer.push(linefields[j])
+			}
+		}
 	}
 } else {
 	for (let i = 0; i < files.length; i++) {
 		let lines = util.readFileAsLines(files[i])
 		for (let j = 0; j < lines.length; j++) {
-			outbuffer.push(lines[j].split(delimiter)[field])
+			outbuffer.push(lines[j].split(delimiter))
 		}
 	}
 }
