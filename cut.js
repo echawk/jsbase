@@ -11,21 +11,21 @@ var delimiter
 var field // will need to make an array to follow spec
 var files = []
 let fields = [] /* I think it will be easier to list the fields to *drop* rather than to list the fields to keep*/
+let keep_greater_than_equal
+let keep_less_than_equal
 
 function parseFieldArg (arg) {
 	let comma_split_arg = arg.split(",")
 	for (let i = 0; i < comma_split_arg.length; i++) {
 		if (comma_split_arg[i].includes("-")) {
 			if (comma_split_arg[i].startsWith("-")) {
-				for (let i = 1; i <= Number.parseInt(dash_split_arg[1]); i++) {
-					fields.push(i)
-				}
+				keep_less_than_equal = Number.parseInt(comma_split_arg[i][1])
 			} else if (comma_split_arg[i].endsWith("-")) {
 					/* FIXME: follow spec */
+					keep_greater_than_equal = Number.parseInt(comma_split_arg[i][0])
 			} else {
 				let dash_split_arg = comma_split_arg[i].split("-")
 				for (let i = Number.parseInt(dash_split_arg[0]); i <= Number.parseInt(dash_split_arg[1]); i++) {
-					print(i)
 					fields.push(i)
 				}
 			}
@@ -35,6 +35,19 @@ function parseFieldArg (arg) {
 	}
 	/* I think a good return value for this function would be a function that when given a number,
 	tells you whether or not a field is to be included in the final output or not */
+	return (number) => {
+		if (fields.includes(number)) {
+			return true
+		} else {
+			if (number >= keep_greater_than_equal) {
+				return true
+			}
+			if (number <= keep_less_than_equal) {
+				return true
+			}
+		}
+		return false
+	};
 }
 
 /* Parse arguments */
@@ -52,7 +65,7 @@ for (let i = 0; i < args.length; i++) {
 		if (!(args[i].replace("-f", "") == "")) {
 			/* FIXME: follow spec */
 			field = Number.parseInt(args[i].replace("-f", "")) - 1
-			parseFieldArg(args[i].replace("-f", ""))
+			let f = parseFieldArg(args[i].replace("-f", ""))
 		} else {
 			i++
 			if (i < args.length) {
@@ -62,6 +75,8 @@ for (let i = 0; i < args.length; i++) {
 				}
 			}
 		}
+	} else if (args[i].startsWith("-c")) {
+		/* FIXME: follow spec */
 	} else if (args[i] == "-") {
 		/* FIXME: follow spec */
 	} else {
@@ -72,8 +87,6 @@ for (let i = 0; i < args.length; i++) {
 if (delimiter == "") {
 	delimiter = "\t"
 }
-
-//std.printf("DELIM: '%s' \nFIELD: '%s' \nFILES: '%s'\n", delimiter, field, files)
 
 /* if we don't have a field, error out */
 if (field < 0){
