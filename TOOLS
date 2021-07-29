@@ -12,7 +12,7 @@ rev       - DONE
 cat       - mostly
 tac       - DONE
 tee       - DONE
-basename  - started
+basename  - DONE
 head      - DONE
 shuf      - started
 whoami    - DONE
