@@ -1,0 +1,3 @@
+[ ] - add ability to read files as they come in, instead of all at once
+[ ] - add ability to print binary data
+      - this is currently one of the bugs of my current cat implementation
