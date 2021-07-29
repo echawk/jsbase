@@ -11,7 +11,7 @@ kill      - partly
 rev       - DONE
 cat       - mostly
 tac       - DONE
-tee       - mostly
+tee       - DONE
 basename  - started
 head      - DONE
 shuf      - started
