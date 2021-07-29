@@ -14,9 +14,8 @@ for (let i = 0; i < args.length; i++) {
 		std.exit(1)
 	} else if (args[i] == "-a") {
 		file_mode = "a"
-		/* FIXME: implement spec */
 	} else if (args[i] == "-i") {
-		std.exit(1)
+		os.signal(os.SIGINT, null)
 	} else {
 		files.push(args[i])
 	}
