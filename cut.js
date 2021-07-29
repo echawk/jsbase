@@ -13,6 +13,7 @@ var files = []
 let fields = [] /* I think it will be easier to list the fields to *drop* rather than to list the fields to keep*/
 let keep_greater_than_equal
 let keep_less_than_equal
+var keepField = () => { return false } /* by default, keep no fields */
 
 function parseFieldArg (arg) {
 	let comma_split_arg = arg.split(",")
@@ -65,7 +66,7 @@ for (let i = 0; i < args.length; i++) {
 		if (!(args[i].replace("-f", "") == "")) {
 			/* FIXME: follow spec */
 			field = Number.parseInt(args[i].replace("-f", "")) - 1
-			var f = parseFieldArg(args[i].replace("-f", ""))
+			keepField = parseFieldArg(args[i].replace("-f", ""))
 		} else {
 			i++
 			if (i < args.length) {
@@ -102,7 +103,7 @@ if (files.length == 0) {
 	for (let i = 0; i < lines.length; i++) {
 		let linefields = lines[i].split(delimiter)
 		for (let j = 0; j < linefields.length; j++) {
-			if (f(j)) {
+			if (keepField(j)) {
 				outbuffer.push(linefields[j])
 			}
 		}
