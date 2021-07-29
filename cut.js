@@ -103,7 +103,7 @@ if (files.length == 0) {
 	for (let i = 0; i < lines.length; i++) {
 		let linefields = lines[i].split(delimiter)
 		for (let j = 0; j < linefields.length; j++) {
-			if (keepField(j)) {
+			if (keepField(j+1)) {
 				outbuffer.push(linefields[j])
 			}
 		}
